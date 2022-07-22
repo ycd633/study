@@ -8,6 +8,7 @@ import java.util.Properties;
 public class PropertiesKR {
 
     private final Properties properties = new Properties();
+    @SuppressWarnings("FieldMayBeFinal")
     private static PropertiesKR _instance = new PropertiesKR();
 
     public static PropertiesKR getInstance(){

@@ -7,3 +7,17 @@ https://jronin.tistory.com/124
 Session 참조
 https://junshock5.tistory.com/84
 https://velog.io/@sorzzzzy/Spring-Boot5-6.-%EB%A1%9C%EA%B7%B8%EC%9D%B8-%EC%B2%98%EB%A6%AC1-%EC%BF%A0%ED%82%A4-%EC%84%B8%EC%85%98
+
+
+CREATE TABLE STUDY.USERS(
+    USER_ID INT(16) AUTO_INCREMENT,
+    LOGIN_ID NVARCHAR(100),
+    NAME NVARCHAR(100),
+    PASSWORD NVARCHAR(100),
+    CREATE_DT DATETIME,
+    EXPIRE_DT DATETIME,
+    IS_DISABLED NVARCHAR(1),
+    IS_LOCKED NVARCHAR(1),
+    PARTICIPATION_ID INT(6),
+    PRIMARY KEY (USER_ID)
+)

@@ -16,6 +16,7 @@ public class SampleSessionController {
     @Autowired
     private static SessionManager sessionManager;
 
+
     @GetMapping("/createSession")
     public static String login(HttpServletRequest request, HttpServletResponse response)
     {

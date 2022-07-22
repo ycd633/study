@@ -1,6 +1,6 @@
 package com.com.stduy.controller;
 
-import com.com.stduy.dto.testDto;
+
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiResponse;
 import io.swagger.annotations.ApiResponses;
@@ -14,7 +14,6 @@ import javax.servlet.http.HttpServletRequest;
 public class ViewController {
 
     @GetMapping("/")
-    @ApiOperation(value="메인화면", notes = "기본페이지", response = testDto.class)
     public String index()
     {
         return "index";

@@ -8,23 +8,16 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletRequestWrapper;
 import java.io.IOException;
 import java.nio.charset.Charset;
-import java.nio.charset.StandardCharsets;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.util.Base64;
 
 @Component
-@WebFilter(urlPatterns = "/reg")
+@WebFilter(urlPatterns = {"/join", "/login"})
 public class CryptFilter implements Filter {
 
     @Override
-    public void init(FilterConfig filterConfig) throws ServletException {
-        System.out.println("Web Filter init");
-    }
-
-    @Override
     public void doFilter(ServletRequest servletRequest, ServletResponse servletResponse, FilterChain filterChain) throws IOException, ServletException {
-        System.out.println("WEB Filter");
         HttpServletRequest httpServletRequest = (HttpServletRequest) servletRequest;
         LoginWrapper loginWrapper = new LoginWrapper(httpServletRequest);
         filterChain.doFilter(loginWrapper, servletResponse);
@@ -45,12 +38,12 @@ class LoginWrapper extends HttpServletRequestWrapper{
     public String getParameter(String key)
     {
         String value = "";
-        if(key != null && key.equals("userPwd")){
-            value = getSha512(super.getParameter("userPwd"));
+        if(key != null && key.equals("password")){
+            value = getSha512(super.getParameter("password"));
         }
         else
         {
-            value = super.getParameter("userPwd");
+            value = super.getParameter("password");
         }
         return value;
     }

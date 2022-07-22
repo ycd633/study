@@ -1,6 +1,7 @@
 package com.com.stduy.configuration.interceptor;
 
-import com.com.stduy.model.UserModel;
+import com.com.stduy.configuration.session.SessionManager;
+import com.com.stduy.users.model.vo.UserVo;
 import org.apache.commons.lang3.ObjectUtils;
 import org.springframework.stereotype.Component;
 import org.springframework.web.servlet.HandlerInterceptor;
@@ -13,20 +14,21 @@ import javax.servlet.http.HttpSession;
 @Component
 public class LoginInterceptor implements HandlerInterceptor {
 
+
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler)
             throws Exception {
+
         HttpSession session = request.getSession();
-        UserModel userModel = (UserModel) session.getAttribute("login_id");
-        System.out.println(ObjectUtils.isEmpty(userModel));
-        if(ObjectUtils.isEmpty(userModel)){
+
+        UserVo uservo = (UserVo) session.getAttribute(SessionManager.SESSION_COOKIE_NAME);
+        if(ObjectUtils.isEmpty(uservo)){
             response.sendRedirect("/account/login");
             return false;
         }else{
             session.setMaxInactiveInterval(30*60);
             return true;
         }
-
     }
 
     @Override

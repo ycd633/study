@@ -1,0 +1,1 @@
+$(".login_name > input, .login_id > input" ).click(function(){alert($(this).hasClass())});

@@ -1,0 +1,37 @@
+.toggleSwitch {
+    width: 6rem;
+    height: 3rem;
+    display: block;
+    position: relative;
+    border-radius: 2rem;
+    background-color: #fff;
+    box-shadow: 0 0 1rem 3px rgba(0 0 0 / 15%);
+    cursor: pointer;
+  }
+  
+   /* 토글 버튼 */
+  .toggleSwitch .toggleButton {
+    /* 버튼은 토글보다 작아야함  */
+    width: 2.6rem;
+    height: 2.6rem;
+    position: absolute;
+    top: 50%;
+    left: .2rem;
+    transform: translateY(-50%);
+    border-radius: 50%;
+    background: #f03d3d;
+  }
+
+  #toggle:checked ~ .toggleSwitch {
+    background: #f03d3d;
+  }
+  
+  #toggle:checked ~ .toggleSwitch .toggleButton {
+    /* 100% -> 끝위치, 2.8rem -> 버튼 크기 */
+    left: calc(100% - 2.8rem);
+    background: #fff;
+  }
+  
+  .toggleSwitch, .toggleButton {
+    transition: all 0.2s ease-in;
+  }

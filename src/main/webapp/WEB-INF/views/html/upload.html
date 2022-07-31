@@ -1,0 +1,216 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>   
+    <meta charset="UTF-8">   
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">    <title>Document</title>   
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;700&display=swap" rel="stylesheet"> 
+     
+    <script src="https://kit.fontawesome.com/53a8c415f1.js" crossorigin="anonymous"></script>   
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css">   
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>   
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.0/umd/popper.min.js"></script>   
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.0/js/bootstrap.min.js"></script>   
+    <link rel="stylesheet" href="./login.css">    <style>
+        .tabs {
+            width: 100%;
+            display: inline-block;
+        }
+
+        /*----- Tab Links -----*/
+        /* Clearfix */
+        .tab-links:after {
+            display: block;
+            clear: both;
+            content: '';
+        }
+
+        .tab-links li {
+            margin: 0px 5px;
+            float: left;
+            list-style: none;
+        }
+
+        .tab-links a {
+            padding: 9px 15px;
+            display: inline-block;
+            border-radius: 3px 3px 0px 0px;
+            font-size: 16px;
+            font-weight: 600;
+            color: #4c4c4c;
+            transition: all linear 0.15s;
+        }
+
+        .tab-links a:hover {
+            border-bottom: 3px solid black;
+            text-decoration: none;
+        }
+
+        li.active a,
+        li.active a:hover {
+            border-bottom: 3px solid black;
+            color: #4c4c4c;
+        }
+
+        /*----- Content of Tabs -----*/
+        .tab-content {
+            padding: 15px;
+            border-radius: 3px;
+        }
+
+        .tab {
+            display: none;
+        }
+
+        .tab.active {
+            display: block;
+        }
+
+        .dialog-header {
+            min-height: 10%;
+            padding: 0px 10px 0px 10px;
+            border-bottom: 0.06rem solid #f56a6a;
+        }
+
+        .dialog-footer {
+            min-height: 5%;
+            padding: 0px 10px 0px 10px;
+            border-top: 0.06rem solid #f56a6a;
+        }
+
+        .dialog-body {
+            min-height: 85%;
+        }
+
+        .dialog-footer-button {
+            text-align: right;
+            padding: 0.5rem 0.5rem;
+        }
+
+        .dialog-button {
+            border-radius: 15px;
+            font-size: 15px;
+            min-width: 80px;
+        }
+
+        .upload-left-text {
+            display: inline;
+        }
+
+        .upload-right-text {
+            float: right;
+            display: inline;
+        }
+
+        .upload-files {
+            border: 1px solid #f56a6a;
+            text-align: center;
+            border-radius: 12px;
+            width: 70px;
+        }
+
+        .upload-files-list {
+            width: 100%;
+            height: 270px;
+            border: 1px solid;
+            margin-top: 20px;
+            overflow: auto;
+        }
+
+        .upload-form {
+            display: inline-block;
+            padding: 10px 30px 10px 30px;
+            width: 150px;
+        }
+
+        .upload-file-main {
+            margin-top: 20px;
+        }
+
+        .upload-main {
+            border-bottom: 0.5px solid #f56a6a;
+        }
+
+        .upload-file-img {
+            width: 50px;
+        }
+
+        .upload-form-remove {
+            display: inline-block;
+            padding: 10px 30px 10px 30px;
+            background: url("close24_mo.svg");
+            background-repeat: no-repeat;
+            cursor: pointer;
+        }
+    </style> 
+    <script>      jQuery(document).ready(function () {
+            jQuery('.tabs .tab-links a').on('click', function (e) {
+                var currentAttrValue = jQuery(this).attr('href');
+                // Show/Hide Tabs            jQuery('.tabs ' + currentAttrValue).show().siblings().hide();
+                // Change/remove current tab to active            jQuery(this).parent('li').addClass('active').siblings().removeClass('active');
+                e.preventDefault();
+            });
+            $(document).on('click', '#remove', function () { let element = $(this); element.parent().remove(); fileDeleteValue(element.parent().find("#orgSize").text()); });
+        });
+        function loadFile(input) {
+            var fileSizes = 0; for (idx = 0; idx < input.files.length; idx++) {
+                let file = input.files[idx]; fileSizes += Number(file.size); let parentEl = document.getElementById('wrapper');                  /*************** DIV *********************/            let div = document.createElement('div'); div.setAttribute('style', 'text-align:center'); div.classList.add('upload-main'); let thumElDiv = document.createElement('div'); thumElDiv.classList.add('upload-form'); let nameElDiv = document.createElement('div'); nameElDiv.classList.add('upload-form'); let typeElDiv = document.createElement('div'); typeElDiv.classList.add('upload-form'); let sizeElDiv = document.createElement('div'); sizeElDiv.classList.add('upload-form'); let orgSizeElDiv = document.createElement('div'); orgSizeElDiv.setAttribute('id', 'orgSize'); orgSizeElDiv.setAttribute('style', 'display :none'); let removeElDiv = document.createElement('div'); removeElDiv.classList.add('upload-form-remove'); removeElDiv.setAttribute("id", "remove");
+                /*************** DIV *********************/
+                let img = document.createElement('img'); img.classList.add('upload-file-img'); img.setAttribute('src', 'mime_video96.png'); thumElDiv.append(img); nameElDiv.appendChild(document.createTextNode(file.name)); typeElDiv.appendChild(document.createTextNode(file.type)); sizeElDiv.appendChild(document.createTextNode(bytesToSize(file.size))); orgSizeElDiv.appendChild(document.createTextNode(file.size)); div.append(thumElDiv); div.append(nameElDiv); div.append(typeElDiv); div.append(sizeElDiv); div.append(removeElDiv); div.append(orgSizeElDiv); parentEl.appendChild(div);
+            } fieldInsetValue(input.files.length, fileSizes);
+        };
+        function fileDeleteValue(data) { let c = Number($("#count").text()) - 1; let t = Number($("#hiddenData").text()) - data; $("#count").text(c); $("#data").text(bytesToSize(t)); $("#hiddenData").text(t); }
+        function fieldInsetValue(count, data) { let total = Number($("#count").text()) + count; $("#count").text(total); $("#data").text(bytesToSize(data)); $("#hiddenData").text(data); }
+
+        function bytesToSize(bytes) { var sizes = ['Bytes', 'KB', 'MB', 'GB', 'TB']; if (bytes == 0) return '0 Byte'; var i = parseInt(Math.floor(Math.log(bytes) / Math.log(1024))); return Math.round(bytes / Math.pow(1024, i), 2) + ' ' + sizes[i]; }
+    </script>
+</head>
+
+<body>    <div class="wrap">        <div class="login">            <div class="inner" style="width:100%;min-height:95%">
+                                <div class="dialog-header">                    <h3>New Assets</h3>                </div>
+                                <div class="dialog-body">                    <div class="tabs">                       
+                        <ul class="tab-links" style="border-bottom : 1px solid black">                            <li
+                                class="active"><a href="#tab1">Files</a></li>                            <li><a
+                                    href="#tab2">Metadata</a></li>                            <li><a
+                                    href="#tab3">Security</a></li>                        </ul>                       
+                        <div class="tab-content">                            <div id="tab1" class="tab active">         
+                                                      <div class="category-div">                                    <div
+                                        style="margin: 0px 0px 5px 0px; font-size : 0.8rem">Category</div>             
+                                                          <select style="width: 40%; min-width : 40%">                 
+                                                              <option value='apple' selected>국내영화</option>             
+                                                                  <option value='banana'>해외영화</option>                 
+                                                              <option value='lemon'>국내드라마</option>                     
+                                                              <option value='lemon'>해외드라마</option>                     
+                                                          </select>                                </div>               
+                                                <div class="upload-file-main" style="font-size: x-small;">             
+                                                          <div class="upload-left-text">                               
+                                                <span id="count">0</span> files selected for upload (<span
+                                            id="data">0.0000 MB</span>) <span id="hiddenData"
+                                            style="display: none;"></span>                                     </div>   
+                                                                    <div class="upload-right-text">                     
+                                                          <span>Drag files into the area below, or</span>              
+                                                                  <label class="upload-files" for="chooseFile">Select
+                                            files</label>                                                              
+                                                    </div>                                    <div
+                                        class="upload-files-list">                                        <div
+                                            class="files_wrapper" id="wrapper">                                       
+                                        </div>                                    </div>                                
+                                                                     </div>                            </div>           
+                                                    <div id="tab2" class="tab">                                <p>Tab #2
+                                    content goes here!</p>                            </div>                           
+                                    <div id="tab3" class="tab">                                <p>Tab #3 content goes
+                                    here!</p>                            </div>                        </div>           
+                                </div>                  </div>                  <div class="dialog-footer">             
+                          <div class="dialog-footer-button">                        <button class="dialog-button"
+                            name="Finish" value="finish"
+                            style="background-color:#f56a6a;color:floralwhite">Finish</button>                          
+                                <button class="dialog-button" name="Cancel" value="Cancel"
+                            style="background-color:floralwhite;color:#f56a6a">Cancel</button>                    </div>
+                                    </div>                          <form method="post" enctype="multipart/form-data"
+                    class="upload-files" style="display: none;">                    <input type="file"
+                        multiple="multiple"  id="chooseFile" name="chooseFile[]" accept="image/*"
+                        onchange="loadFile(this)" style="display:none">                </form>                          
+                                  </div>        </div>      </div>
+</body>
+
+</html>

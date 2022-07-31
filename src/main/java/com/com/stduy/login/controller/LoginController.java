@@ -23,6 +23,7 @@ public class LoginController {
     @Autowired
     private TestMapper mapper;
 
+    @GetMapping("db")
     public void DB()
     {
         String test = mapper.test();
